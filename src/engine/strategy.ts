@@ -122,11 +122,17 @@ const range = (codes: Code[], pred: (c: Code) => boolean): string => {
 };
 
 /** BJA-style one-liner for a chart row (regenerated from the table so it never drifts). */
-export function phrase(key: CellKey, rules: Pick<Rules, "h17">): string {
+export function phrase(key: CellKey, rules: Pick<Rules, "h17" | "surrender">): string {
   const codes = DEALER_COLS.map((up) => chartCode({ ...key, up }, rules));
   const label = key.kind === "pair" ? (key.value === 11 ? "A" : String(key.value)) : "";
   const name = key.kind === "pair" ? `${label},${label}` : key.kind === "soft" ? `Soft ${key.value} (A,${key.value - 11})` : `Hard ${key.value}`;
-  const cat = (c: Code) => (c.startsWith("R") ? "surrender" : c === "P" || c === "Ph" ? "split" : c === "Dh" || c === "Ds" ? "double" : c === "S" ? "stand" : "hit");
+  const surrenderOffered = rules.surrender === "late";
+  // Bug fix: a table without surrender should never be told to surrender. Fold those cells
+  // into what they actually fall back to (mirrors resolve()'s Rh/Rs/Rp fallback).
+  const cat = (c: Code) => {
+    if (c.startsWith("R")) return surrenderOffered ? "surrender" : c === "Rp" ? "split" : c === "Rs" ? "stand" : "hit";
+    return c === "P" || c === "Ph" ? "split" : c === "Dh" || c === "Ds" ? "double" : c === "S" ? "stand" : "hit";
+  };
   const cats = codes.map(cat);
   const count = (k: string) => cats.filter((x) => x === k).length;
   // BJA convention: hard totals end in "otherwise hit", soft totals in "otherwise stand" (when a stand exists).

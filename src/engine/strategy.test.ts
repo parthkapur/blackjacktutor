@@ -100,6 +100,17 @@ test("resolver honours table availability", () => {
   assert.equal(advise([c("A"), c("3"), c("4")], c("4"), ["hit", "stand"], r).action, "stand");
 });
 
+test("phrase never mentions surrender when the table doesn't offer it", () => {
+  const noSurrender: Rules = { ...DEFAULT_RULES, surrender: "none" };
+  // 9–A used to say "surrender vs 9–A"; those cells fall back to hit, same as the plain hard-16 hit range.
+  assert.equal(phrase({ kind: "hard", value: 16, up: 2 }, noSurrender), "Hard 16: stand vs 2–6; otherwise hit.");
+  assert.equal(phrase({ kind: "hard", value: 15, up: 2 }, noSurrender), "Hard 15: stand vs 2–6; otherwise hit.");
+  assert.equal(phrase({ kind: "hard", value: 17, up: 2 }, noSurrender), "Hard 17: always stand.");
+  // 8,8 vs A (Rp in H17): falls back to split, not surrender.
+  assert.equal(phrase({ kind: "pair", value: 8, up: 11 }, noSurrender), "8,8: always split.");
+  for (const value of [15, 16, 17]) for (const up of DEALER_COLS) assert.ok(!phrase({ kind: "hard", value, up }, noSurrender).includes("surrender"));
+});
+
 test("phrases read like BJA", () => {
   assert.equal(phrase({ kind: "hard", value: 16, up: 2 }, DEFAULT_RULES), "Hard 16: surrender vs 9–A; stand vs 2–6; otherwise hit.");
   assert.equal(phrase({ kind: "soft", value: 18, up: 2 }, DEFAULT_RULES), "Soft 18 (A,7): double vs 2–6; hit vs 9–A; otherwise stand.");
