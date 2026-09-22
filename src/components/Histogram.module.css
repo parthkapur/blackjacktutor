@@ -1,0 +1,8 @@
+.wrap { position: relative; width: 100%; }
+.svg { width: 100%; height: auto; display: block; overflow: visible; }
+.bar { transition: opacity var(--dur-fast); }
+.bar:hover { opacity: 0.8; }
+.axis { font-size: 11px; fill: var(--fg-muted); font-family: var(--font-mono); }
+.grid { stroke: var(--border-strong); stroke-width: 1; }
+.start { stroke: var(--fg); stroke-width: 1.5; stroke-dasharray: 3 4; }
+.tip { position: absolute; transform: translate(-50%, -110%); background: var(--bg-elev); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); padding: 4px 8px; font-size: var(--text-xs); white-space: nowrap; pointer-events: none; font-family: var(--font-mono); box-shadow: var(--shadow-1); }
