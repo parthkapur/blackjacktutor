@@ -1,0 +1,15 @@
+.wrap { display: flex; flex-direction: column; gap: var(--space-4); }
+.controls { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; }
+.stage { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-4); min-height: 260px; --card-w: clamp(84px, 24vw, 120px); }
+.cards { display: flex; gap: var(--space-3); min-height: calc(var(--card-w) * 1.4); align-items: center; }
+.answer { display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap; justify-content: center; }
+.answer input { font: inherit; font-family: var(--font-mono); font-size: var(--text-xl); width: 6ch; text-align: center; min-height: 52px; border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.3); color: #fff; }
+.result { font-size: var(--text-lg); text-align: center; display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.result small { font-size: var(--text-sm); opacity: 0.8; }
+.stats { display: flex; gap: var(--space-4); flex-wrap: wrap; font-size: var(--text-sm); color: var(--fg-muted); }
+.stats b { color: var(--fg); font-family: var(--font-mono); }
+.progress { width: min(100%, 320px); height: 4px; background: rgba(0,0,0,0.35); border-radius: 2px; overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--accent); transition: width 120ms linear; }
+.pair { display: flex; }
+.pair > *:last-child { margin-left: calc(var(--card-w) * -0.5); }
+.hint { font-size: var(--text-sm); opacity: 0.8; text-align: center; max-width: 46ch; }
