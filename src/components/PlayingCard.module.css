@@ -29,8 +29,18 @@
     #1e3a8a;
   border: calc(var(--w) * 0.06) solid var(--card-face);
 }
-.enter { animation: deal var(--dur-slow) var(--ease-out) both; }
+/*
+ * Dealt from above (the dealer's hand at the shoe), arcing down into place with a small
+ * overshoot-and-settle so it reads as a physical toss rather than a fade-in.
+ * `--card-rest` lets a caller override the resting transform (e.g. the sideways "doubled" card)
+ * without fighting the animation's own end-state — see .dbl in play/page.module.css.
+ */
+.enter {
+  animation: deal var(--dur-deal) var(--ease-spring) both;
+  animation-delay: var(--deal-delay, 0ms);
+}
 @keyframes deal {
-  from { opacity: 0; transform: translate(40px, -60px) rotate(8deg); }
-  to { opacity: 1; transform: none; }
+  0% { opacity: 0; transform: translate(calc(var(--w) * 0.85), calc(var(--w) * -1.3)) rotate(14deg) scale(0.92); }
+  60% { opacity: 1; }
+  100% { opacity: 1; transform: var(--card-rest, none); }
 }

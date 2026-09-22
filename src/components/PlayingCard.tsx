@@ -14,14 +14,37 @@ const Suit = ({ suit }: { suit: Card["suit"] }) => (
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d={SUIT_PATH[suit]} fill="currentColor" /></svg>
 );
 
-export default function PlayingCard({ card, hidden = false, animate = false, className = "" }: { card?: Card; hidden?: boolean; animate?: boolean; className?: string }) {
+interface Props {
+  card?: Card;
+  hidden?: boolean;
+  animate?: boolean;
+  className?: string;
+  /**
+   * This card's position within the hand it's being dealt into. Drives two things: a small
+   * per-card delay so a multi-card hand deals one card at a time (like a real dealer), and a
+   * slight alternating tilt so a resting hand fans out instead of sitting in a dead-straight stack.
+   * Omit for a card that isn't part of a dealt sequence (e.g. a lone reference card).
+   */
+  dealIndex?: number;
+  /** Skip the resting tilt — used for a card given its own fixed orientation (e.g. rotated sideways to mark a double). */
+  flat?: boolean;
+}
+
+export default function PlayingCard({ card, hidden = false, animate = false, className = "", dealIndex, flat = false }: Props) {
+  const style =
+    dealIndex != null
+      ? ({
+          "--deal-delay": `${dealIndex * 110}ms`,
+          ...(flat ? {} : { "--card-rest": `rotate(${dealIndex % 2 === 0 ? -2.5 : 2.5}deg)` }),
+        } as React.CSSProperties)
+      : undefined;
   if (hidden || !card) {
-    return <div className={`${styles.card} ${styles.back} ${animate ? styles.enter : ""} ${className}`} role="img" aria-label="face-down card" />;
+    return <div className={`${styles.card} ${styles.back} ${animate ? styles.enter : ""} ${className}`} style={style} role="img" aria-label="face-down card" />;
   }
   const red = card.suit === "h" || card.suit === "d";
   const rank = card.rank === "T" ? "10" : card.rank;
   return (
-    <div className={`${styles.card} ${red ? styles.red : ""} ${animate ? styles.enter : ""} ${className}`} role="img" aria-label={`${RANK_NAME[card.rank] ?? card.rank} of ${SUIT_NAME[card.suit]}`}>
+    <div className={`${styles.card} ${red ? styles.red : ""} ${animate ? styles.enter : ""} ${className}`} style={style} role="img" aria-label={`${RANK_NAME[card.rank] ?? card.rank} of ${SUIT_NAME[card.suit]}`}>
       <span className={styles.corner}>{rank}<Suit suit={card.suit} /></span>
       <span className={styles.pip}><Suit suit={card.suit} /></span>
       <span className={`${styles.corner} ${styles.br}`}>{rank}<Suit suit={card.suit} /></span>

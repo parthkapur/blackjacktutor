@@ -254,7 +254,7 @@ export default function PlayPage() {
           <span className={styles.label}>Dealer {round && (revealed || !rules.peek || round.dealer.length > 2) && dealerTotal && <span className={styles.total}>{dealerTotal.total > 21 ? "bust" : dealerTotal.total}</span>}</span>
           <div className={styles.cards}>
             {round?.dealer.map((c, i) => (
-              <PlayingCard key={`${c.rank}${c.suit}${i}`} card={c} hidden={i === 1 && !revealed} animate className={i === 1 && revealed ? styles.reveal : ""} />
+              <PlayingCard key={`${c.rank}${c.suit}${i}`} card={c} hidden={i === 1 && !revealed} animate dealIndex={i} className={i === 1 && revealed ? styles.reveal : ""} />
             ))}
           </div>
         </div>
@@ -267,7 +267,7 @@ export default function PlayPage() {
               return (
                 <div key={i} className={`${styles.hand} ${isActive ? styles.active : ""}`} aria-current={isActive ? "true" : undefined}>
                   <div className={styles.cards}>
-                    {h.cards.map((c, j) => <PlayingCard key={`${c.rank}${c.suit}${j}`} card={c} animate className={h.doubled && j === 2 ? styles.dbl : ""} />)}
+                    {h.cards.map((c, j) => <PlayingCard key={`${c.rank}${c.suit}${j}`} card={c} animate dealIndex={j} flat={h.doubled && j === 2} className={h.doubled && j === 2 ? styles.dbl : ""} />)}
                   </div>
                   <span className={styles.label}>
                     <span className={styles.total}>{t.total > 21 ? "bust" : `${t.soft && t.total < 21 ? "soft " : ""}${t.total}`}</span>

@@ -87,7 +87,7 @@ export default function CountDrill({ decks }: { decks: number }) {
         {phase === "running" && (
           <>
             <div className={`${styles.cards} ${pairs ? styles.pair : ""}`}>
-              {visible.map((c, k) => <PlayingCard key={`${i}-${k}`} card={c} animate />)}
+              {visible.map((c, k) => <PlayingCard key={`${i}-${k}`} card={c} animate dealIndex={k} />)}
             </div>
             <div className={styles.progress}><i style={{ width: `${(100 * (i + step)) / seq.length}%` }} /></div>
           </>

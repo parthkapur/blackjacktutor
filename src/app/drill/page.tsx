@@ -105,12 +105,12 @@ export default function DrillPage() {
       <section className={styles.felt} aria-label="Drill table">
         <div className={styles.seat}>
           <span className={styles.label}>Dealer shows</span>
-          <div className={styles.cards}>{q && <PlayingCard key={q.up.rank + q.up.suit + stats.total} card={q.up} animate />}</div>
+          <div className={styles.cards}>{q && <PlayingCard key={q.up.rank + q.up.suit + stats.total} card={q.up} animate dealIndex={0} />}</div>
         </div>
         <div className={styles.seat}>
           <span className={styles.label}>You</span>
           <div className={styles.cards}>
-            {q?.cards.map((c, i) => <PlayingCard key={`${stats.total}-${i}`} card={c} animate />)}
+            {q?.cards.map((c, i) => <PlayingCard key={`${stats.total}-${i}`} card={c} animate dealIndex={i} />)}
           </div>
           {total && <span className={styles.total}>{total.soft ? "soft " : ""}{total.total}{q?.key.kind === "pair" ? " · pair" : ""}</span>}
         </div>
