@@ -1,0 +1,16 @@
+.wrap { position: relative; width: 100%; }
+.svg { width: 100%; height: auto; display: block; overflow: visible; touch-action: pan-y; }
+.grid { stroke: var(--border-strong); stroke-width: 1; }
+.base { stroke: var(--fg-muted); stroke-dasharray: 3 4; stroke-width: 1; opacity: 0.6; }
+.line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.area { fill: var(--accent); opacity: 0.08; }
+.axis { font-size: 11px; fill: var(--fg-muted); font-family: var(--font-mono); }
+.cross { stroke: var(--fg-muted); stroke-width: 1; }
+.dot { fill: var(--accent); stroke: var(--bg-elev); stroke-width: 2; }
+.tip {
+  position: absolute; top: 0; transform: translate(-50%, -110%);
+  background: var(--bg-elev); border: 1px solid var(--border-strong); border-radius: var(--radius-sm);
+  padding: 4px 8px; font-size: var(--text-xs); white-space: nowrap; pointer-events: none; box-shadow: var(--shadow-1);
+  font-family: var(--font-mono); font-variant-numeric: tabular-nums;
+}
+.empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--fg-muted); font-size: var(--text-sm); }
