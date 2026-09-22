@@ -1,0 +1,19 @@
+.wrap { display: flex; flex-direction: column; gap: var(--space-4); }
+.top { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; justify-content: space-between; }
+.select {
+  font: inherit; color: var(--fg); background: var(--bg-sunken);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-md);
+  min-height: 44px; padding: 0 var(--space-3); max-width: 100%;
+}
+.edge { display: flex; align-items: baseline; gap: var(--space-2); }
+.edge strong { font-size: var(--text-xl); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-3); }
+.field { display: flex; flex-direction: column; gap: var(--space-1); font-size: var(--text-sm); color: var(--fg-muted); }
+.field .seg { width: 100%; }
+.field .seg button { flex: 1; min-height: 40px; padding: 0 var(--space-2); }
+.field input {
+  font: inherit; color: var(--fg); background: var(--bg-sunken);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-md);
+  min-height: 40px; padding: 0 var(--space-3); width: 100%;
+}
+.where { font-size: var(--text-sm); color: var(--fg-muted); }
