@@ -1,0 +1,36 @@
+.card {
+  --w: var(--card-w, 64px);
+  width: var(--w);
+  aspect-ratio: 5 / 7;
+  border-radius: calc(var(--w) * 0.09);
+  background: var(--card-face);
+  color: var(--card-black);
+  box-shadow: 0 1px 0 rgba(0,0,0,0.25), 0 6px 14px rgba(0,0,0,0.35);
+  position: relative;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  flex-shrink: 0;
+  user-select: none;
+}
+.red { color: var(--card-red); }
+.corner {
+  position: absolute; top: calc(var(--w) * 0.07); left: calc(var(--w) * 0.09);
+  font-size: calc(var(--w) * 0.26); line-height: 1; display: flex; flex-direction: column; align-items: center; gap: 1px;
+}
+.corner svg { width: calc(var(--w) * 0.18); height: calc(var(--w) * 0.18); }
+.corner.br { top: auto; left: auto; bottom: calc(var(--w) * 0.07); right: calc(var(--w) * 0.09); transform: rotate(180deg); }
+.pip svg { width: calc(var(--w) * 0.42); height: calc(var(--w) * 0.42); }
+.back {
+  background:
+    repeating-linear-gradient(45deg, rgba(255,255,255,0.12) 0 3px, transparent 3px 8px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,0.12) 0 3px, transparent 3px 8px),
+    #1e3a8a;
+  border: calc(var(--w) * 0.06) solid var(--card-face);
+}
+.enter { animation: deal var(--dur-slow) var(--ease-out) both; }
+@keyframes deal {
+  from { opacity: 0; transform: translate(40px, -60px) rotate(8deg); }
+  to { opacity: 1; transform: none; }
+}
